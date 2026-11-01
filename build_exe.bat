@@ -2,10 +2,17 @@
 chcp 65001 >nul
 cd /d "%~dp0"
 echo === Building FakeGameStatus.exe ===
-py -m pip install --upgrade pyinstaller
+where py >nul 2>&1
 if errorlevel 1 (
     echo.
     echo Python was not found. Install it from python.org and tick "Add to PATH".
+    pause
+    exit /b 1
+)
+py -m pip install --upgrade pyinstaller
+if errorlevel 1 (
+    echo.
+    echo Could not install PyInstaller. Check your internet connection and the messages above.
     pause
     exit /b 1
 )
